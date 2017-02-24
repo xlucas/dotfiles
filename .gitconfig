@@ -1,0 +1,109 @@
+[alias]
+    # Amend latest commit with staged changes
+    amend = commit --amend -C HEAD
+
+    # Blame ignoring space
+    b = blame -w
+
+    # Detailed branches information
+    br = branch -vv
+
+    # Remote branches
+    brr = branch --remote
+
+    # Commit with "Signed-off-by" footer
+    c = commit -s
+
+    # Clone recursively
+    cl = clone --recursive
+
+    # Checkout
+    co = checkout
+
+    # Repository contributors with commit count
+    contributors = shortlog --summary
+
+    # Credit an author for the latest commit
+    credit = !"f() { git commit --amend --author \"$1\" -C HEAD; }; f"
+
+    # Show pretty log with abbreviated SHA, gpg signatures validity, description, time author and committer
+    graph = log --graph --pretty=format:'%C(red)%h%Creset %C(blue)%G?%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Creset[%Creseta=%C(cyan dim)%an%Creset,%Cresetc=%C(magenta dim)%cn%Creset]' --abbrev-commit --date=relative --color --branches --tags --decorate
+
+    # View abbreviated SHA, description, and history graph of the latest 20 commits
+    l = log --pretty=oneline -n 20 --graph --abbrev-commit
+
+    # Basic graph log view
+    lg = log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n"
+
+    # Print email address used for committing
+    me = config user.email
+
+    # Safer push force
+    pf = push --force-with-lease
+
+    # Checkout a pull request from origin
+    pr = !"f() { git fetch origin \"dev/$1/$2:$1-$2\"; git checkout \"$1-$2\"; }; f"
+
+    # List remotes with their endpoints
+    remotes = remote -v
+
+    # Diff with staged files
+    sdf = diff -b --staged
+
+    # Short status
+    s = status --short --untracked-files=all
+
+    # List tags
+    tags = tag -l
+
+    # List my today's commit
+    today = !git lg --since='12am' --committer=\"`git me`\"
+
+    # Undo the latest commit
+    undo-commit = reset --soft HEAD^
+
+    # Unstage
+    unstage = reset HEAD
+
+    # Word-aware diff
+    wdf = diff --color-words
+
+[branch]
+    autosetupmerge = true
+    autosetuprebase = always
+
+[color]
+    ui = auto
+
+[commit]
+    gpgsign = true
+
+[core]
+    autocrlf = input
+    editor = vim
+    ignorecase = false
+    pager = less -x4
+    whitespace = cr-at-eol
+
+[credential]
+    helper = cache --timeout=36000
+
+[gpg]
+    program = gpg
+
+[help]
+    autocorrect = 1
+
+[push]
+    default = tracking
+
+[sendemail]
+    smtpencryption = tls
+    smtpserver = smtp.gmail.com
+    smtpuser = xavier.lucas.2@gmail.com
+    smtpserverport = 587
+
+[user]
+    name = Xavier Lucas
+    email = xavier.lucas.2@gmail.com
+    signingkey = 0xd52e58d0ccb40e72
