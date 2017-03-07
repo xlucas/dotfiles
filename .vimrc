@@ -46,6 +46,7 @@ au BufNewFile,BufReadPost *.md set filetype=markdown
 
 " Python specifics
 au BufNewFile,BufReadPost *.py set filetype=python
+au FileType python set iskeyword-=:
 au FileType python setl nowrap ts=8 sw=4 sts=4 et
 
 " Ruby & Crystal specifics
