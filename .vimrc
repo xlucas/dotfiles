@@ -11,11 +11,11 @@ set colorcolumn=80                          " Draw a column at this position
 set cursorline                              " Draw horizontal line on cursor's position
 set dictionary+=/usr/share/dict/words       " Dictionary sources
 set encoding=utf-8                          " Character encoding
-set expandtab                               " Convert tab to space
 set fileencoding=utf-8                      " File encoding
 set nocompatible                            " Don't fallback to vi compatibility
 set nrformats-=octal                        " Decimal number format
 set number                                  " Diplay line numbers
+set smarttab                                " Auto indent to the next tabstop
 set relativenumber                          " Display line numbers from cursor's position
 set selection=exclusive                     " Selection don't include character under cursor
 set shiftwidth=4                            " Shift width in columns
@@ -23,6 +23,9 @@ set showcmd                                 " Show commands in window's footer
 set tabstop=4                               " Tab width in columns
 set textwidth=79                            " Wrap text longer than this size on a new line
 set wrapmargin=0                            " Number of chars from the right before wrapping
+set backupdir=~/.vim/recovery/backup//      " Path for backups
+set directory=~/.vim/recovery/swap//        " Path for swap files
+set undodir=~/.vim/recovery/undo//          " Path for undos
 
 
 " ----------------------------------------- "
@@ -47,13 +50,15 @@ au BufNewFile,BufReadPost *.md set filetype=markdown
 " Python specifics
 au BufNewFile,BufReadPost *.py set filetype=python
 au FileType python set iskeyword-=:
-au FileType python setl nowrap ts=8 sw=4 sts=4 et
+au FileType python setl nowrap ts=8 sw=4 sts=4
 
 " Ruby & Crystal specifics
-au FileType ruby,crystal setl nowrap sw=2 sts=2 et
+au BufNewFile,BufReadPost *.pp set filetype=puppet
+au FileType ruby,crystal setl nowrap sw=2 sts=2
+au FileType puppet setl nowrap sw=2 sts=2
 
 " YAML specifics
-au FileType yaml setl nowrap sw=2 sts=2 et
+au FileType yaml setl nowrap sw=2 sts=2
 
 
 " ----------------------------------------- "
@@ -73,7 +78,12 @@ let g:airline_theme = 'bubblegum'
 let g:airline_powerline_fonts = 1
 
 " autoformat
-let g:formatter_yapf_style = 'pep8;SPLIT_BEFORE_NAMED_ASSIGNS=false'
+let g:formatter_yapf_style = 'pep8
+\ DEDENT_CLOSING_BRACKETS=True
+\ COALESCE_BRACKETS=True
+\ EACH_DICT_ENTRY_ON_SEPARATE_LINE=True
+\ SPLIT_BEFORE_NAMED_ASSIGNS=True'
+
 au BufWrite *.py :Autoformat
 
 " crytal-vim
@@ -145,6 +155,9 @@ nmap <F7> :GundoToggle<CR>
 
 " instant-markdown
 let g:instant_markdown_autostart = 0
+
+" licenses
+let g:licenses_copyright_holders_name = 'Xavier Lucas'
 
 " nerdtree
 nmap <F6> :NERDTreeFind<CR>
