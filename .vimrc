@@ -199,6 +199,7 @@ vmap <F12> :Tabularize / \zs<CR>
 " tagbar
 nmap <F8> :TagbarToggle<CR>
 au VimEnter * nested :TagbarOpen
+au BufEnter * nested :call tagbar#autoopen(0)
 
 " ultisnips
 let g:UltiSnipsExpandTrigger="<c-j>"
