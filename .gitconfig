@@ -14,6 +14,9 @@
     # Commit with "Signed-off-by" footer
     c = commit -s
 
+    # Commit with "Signed-off-by" footer and GPG key
+    cs = commit -s -S
+
     # Clone recursively
     cl = clone --recursive
 
