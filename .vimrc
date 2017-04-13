@@ -60,6 +60,8 @@ au FileType puppet setl nowrap sw=2 sts=2
 " YAML specifics
 au FileType yaml setl nowrap sw=2 sts=2
 
+" Transparent background
+au BufEnter * highlight Normal guibg=NONE ctermbg=NONE
 
 " ----------------------------------------- "
 "   Plugins                                 "
