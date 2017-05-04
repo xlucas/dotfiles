@@ -34,12 +34,17 @@ set undodir=~/.vim/recovery/undo//          " Path for undos
 syntax enable                               " Enable syntax highlighting
 let base16colorspace=256                    " Set colorspace
 colorscheme molokai                         " Load molokai theme first to get a better background
-colorscheme base16-solarized-dark           " Then load solarized theme
+colorscheme base16-solarized-dark
 
 
 " ----------------------------------------- "
 "   Autocomands                             "
 " ----------------------------------------- "
+
+" cross-tmux copy/paste
+vmap <leader>y :w! /tmp/vitmp<CR>
+nmap <leader>p :r! cat /tmp/vitmp<CR>
+
 au BufEnter * set scrolloff=30
 au FileType qf wincmd J
 au VimLeave * !echo -ne "\033[0m"
