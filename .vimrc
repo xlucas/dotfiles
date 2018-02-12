@@ -23,6 +23,7 @@ set showcmd                                 " Show commands in window's footer
 set tabstop=4                               " Tab width in columns
 set textwidth=79                            " Wrap text longer than this size on a new line
 set wrapmargin=0                            " Number of chars from the right before wrapping
+set noswapfile
 set backupdir=~/.vim/recovery/backup//      " Path for backups
 set directory=~/.vim/recovery/swap//        " Path for swap files
 set undodir=~/.vim/recovery/undo//          " Path for undos
@@ -33,8 +34,7 @@ set undodir=~/.vim/recovery/undo//          " Path for undos
 " ----------------------------------------- "
 syntax enable                               " Enable syntax highlighting
 let base16colorspace=256                    " Set colorspace
-colorscheme molokai                         " Load molokai theme first to get a better background
-colorscheme base16-solarized-dark
+colorscheme codedark
 
 
 " ----------------------------------------- "
@@ -62,11 +62,15 @@ au BufNewFile,BufReadPost *.pp set filetype=puppet
 au FileType ruby,crystal setl nowrap sw=2 sts=2
 au FileType puppet setl nowrap sw=2 sts=2
 
+" TypeScript
+autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
+au FileType typescript setl nowrap sw=2 sts=2
+
 " YAML specifics
 au FileType yaml setl nowrap sw=2 sts=2
 
-" Transparent background
-au BufEnter * highlight Normal guibg=NONE ctermbg=NONE
+" HCL specifics
+au FileType hcl setl nowrap sw=2 sts=2
 
 " ----------------------------------------- "
 "   Plugins                                 "
@@ -81,7 +85,7 @@ nmap <Leader>aa :Ag <C-r><C-w><CR>
 let g:ansible_options = {'ignore_blank_lines': 0}
 
 " airline
-let g:airline_theme = 'bubblegum'
+let g:airline_theme = 'codedark'
 let g:airline_powerline_fonts = 1
 
 " autoformat
@@ -92,6 +96,10 @@ let g:formatter_yapf_style = 'pep8
 \ SPLIT_BEFORE_NAMED_ASSIGNS=True'
 
 au BufWrite *.py :Autoformat
+au BufWrite *.ts :Autoformat
+
+" closetag
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
 
 " crytal-vim
 let g:crystal_auto_format=1
@@ -118,6 +126,8 @@ nmap [h <Plug>GitGutterPrevHunk
 " go-vim
 let g:go_auto_type_info = 0
 let g:go_fmt_command = "goimports"
+let g:go_highlight_variable_assignments=1
+let g:go_highlight_variable_declarations=1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
