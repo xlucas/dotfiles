@@ -144,7 +144,7 @@ assign [class="Pidgin"]     9
 # Menu bars
 #=======================
 bar {
-    status_command i3blocks -c ~/.i3/.i3blocks-left.conf
+    status_command py3status -c ~/.i3/i3status.conf
     font pango:Hack, FontAwesome 9
     colors {
             statusline         $midgray
@@ -155,26 +155,7 @@ bar {
             active_workspace   $darkgray $darkgray $midgray
             urgent_workspace   $red      $red      $transparent
         }
-
-        output DVI-0
 }
-
-bar {
-    status_command i3blocks -c ~/.i3/.i3blocks-right.conf
-    font pango:Hack, FontAwesome 9
-    colors {
-            statusline         $midgray
-            background         $darkgray
-                               #BORDER   BACKGROUND TEXT
-            focused_workspace  $darkgray $darkgray  $lightgray
-            inactive_workspace $darkgray $darkgray  $midgray
-            active_workspace   $darkgray $darkgray  $midgray
-            urgent_workspace   $red      $red       $transparent
-        }
-
-        output HDMI-0
-}
-
 
 
 #=======================
