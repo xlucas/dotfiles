@@ -25,8 +25,7 @@ set $cyan        #8ec07c
 set $darkcyan    #689d6a
 set $white       #ebdbb2
 set $darkwhite   #a89984
-set $background  #000000
-set $transparent #000000FF<Paste>
+set $transparent #00000080
 
 
 #=======================
@@ -40,7 +39,16 @@ font pango:Hack, FontAwesome 11
 #=======================
 new_window 1pixel
 hide_edge_borders both
-client.focused $midgray $midgray $midgray $midgray $midgray
+
+gaps inner 5
+gaps outer 5
+
+#                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
+client.focused          $black      $black      $darkwhite  $darkblack  $darkblack
+client.unfocused        $black      $black      $white      $darkblack  $darkblack
+client.focused_inactive $black      $black      $white      $darkblack  $darkblack
+client.urgent           $darkred    $darkred    $black      $darkred    $darkred
+client.background $black
 
 
 #=======================
@@ -92,39 +100,49 @@ bindsym $mod+e layout toggle split
 bindsym $mod+h split h
 bindsym $mod+v split v
 
+set $ws1 	"1:   Web "
+set $ws2 	"2:   Code "
+set $ws3 	"3:   Code "
+set $ws4 	"4:   Terminal "
+set $ws5 	"5:   Terminal "
+set $ws6 	"6:   Terminal "
+set $ws7 	"7:   General "
+set $ws8	"8:   Email "
+set $ws9	"9:   Chat "
+
 # Workspaces interactions
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
 
 
 #=======================
 # Workspaces
 #=======================
-workspace 1 output DVI-0
-workspace 2 output HDMI-0
-workspace 3 output DVI-0
-workspace 4 output HDMI-0
-workspace 5 output DVI-0
-workspace 6 output HDMI-0
-workspace 7 output DVI-0
-workspace 8 output HDMI-0
-workspace 9 output HDMI-0
+workspace $ws1 output HDMI1
+workspace $ws2 output HDMI2
+workspace $ws3 output HDMI1
+workspace $ws4 output HDMI2
+workspace $ws5 output HDMI1
+workspace $ws6 output HDMI2
+workspace $ws7 output HDMI1
+workspace $ws8 output HDMI2
+workspace $ws9 output HDMI1
 
 mode "resize" {
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -135,28 +153,36 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-assign [class="Firefox"]    1
-assign [class="Nautilus"]   8
-assign [class="Pidgin"]     9
+assign [class="Firefox"]     $ws1
+assign [class="code"]        $ws2
+assign [class="Keepassx"]    $ws7
+assign [class="Thunderbird"] $ws8
+assign [class="Pidgin"]      $ws9
 
 
 #=======================
 # Menu bars
 #=======================
 bar {
-	font pango:Inconsolata, FontAwesome 10
-	position bottom
-	tray_output none
-	status_command ~/.i3/bumblebee-status/bumblebee-status -m ping publicip nic xrandr cpu memory disk brightness pasink battery weather datetime layout -t greyish-powerline
+	font pango:Hack, FontAwesome 10
+	position top
+	separator_symbol "■"
+	tray_padding 0
+	status_command i3blocks
+	i3bar_command i3bar -t
+	workspace_buttons       yes
+	strip_workspace_numbers yes
 
 	colors {
-	statusline         $midgray
-	background         $darkgray
-	                   #BORDER   BACKGROUND TEXT
-	focused_workspace  $darkgray $darkgray  $lightgray
-	inactive_workspace $darkgray $darkgray  $midgray
-	active_workspace   $darkgray $darkgray  $midgray
-	urgent_workspace   $red      $red       $transparent
+		statusline	$white
+		background	$transparent
+		separator	$transparent
+		                   	#BORDER   	BACKGROUND 	TEXT
+		focused_workspace  	$transparent 	$transparent 	$white
+		inactive_workspace 	$transparent 	$transparent 	$gray
+		active_workspace   	$transparent 	$transparent 	$gray
+		urgent_workspace   	$darkred     	$darkred	$transparent
+		binding_mode 		$darkred 	$darkred	$transparent
 	}
 }
 
@@ -164,19 +190,24 @@ bar {
 #=======================
 # Startup
 #=======================
-exec xrandr --output HDMI-0 --right-of DVI-0
+exec xrandr --output HDMI1 --left-of HDMI2
 exec xset s off -dpms
-exec /usr/bin/fluxgui &
+exec /usr/bin/feh --bg-scale --no-xinerama ~/pictures/wallpapers/blue_lines.jpg
+exec /usr/bin/compton -b
+exec /usr/bin/nm-applet &
+exec /usr/bin/redshiftgtk &
+exec /usr/bin/volumeicon &
 exec /usr/bin/firefox
+exec /usr/bin/keepassx
 exec /usr/bin/pidgin
+exec /usr/bin/zsh -l -c "code"
 
 # Run terminal containers
-exec i3-msg 'workspace 2; exec /usr/bin/gnome-terminal'
-exec i3-msg 'workspace 3; exec /usr/bin/gnome-terminal'
-exec i3-msg 'workspace 4; exec /usr/bin/gnome-terminal'
-exec i3-msg 'workspace 5; exec /usr/bin/gnome-terminal'
-exec i3-msg 'workspace 6; exec /usr/bin/gnome-terminal'
+exec i3-msg 'workspace "4:   Terminal "; exec /usr/bin/gnome-terminal'
+exec i3-msg 'workspace "5:   Terminal "; exec /usr/bin/gnome-terminal'
+exec i3-msg 'workspace "6:   Terminal "; exec /usr/bin/gnome-terminal'
 
 # Focus workspace 1 after startup
-exec sleep 1 && i3-msg 'workspace 1;'
-exec sleep 1 && i3-msg 'workspace 2;'
+exec sleep 1 && i3-msg 'workspace "1:   Web ";'
+exec sleep 1 && i3-msg 'workspace "2:   Code ";'
+
