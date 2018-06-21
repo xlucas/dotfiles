@@ -191,6 +191,7 @@ bar {
 #=======================
 # Startup
 #=======================
+exec_always --no-startup-id numlockx on
 exec xrandr --output HDMI1 --left-of HDMI2
 exec xset s off -dpms
 exec /usr/bin/feh --bg-scale --no-xinerama ~/pictures/wallpapers/blue_lines.jpg
