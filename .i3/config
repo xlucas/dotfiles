@@ -196,7 +196,7 @@ exec xset s off -dpms
 exec /usr/bin/feh --bg-scale --no-xinerama ~/pictures/wallpapers/blue_lines.jpg
 exec /usr/bin/compton -b
 exec /usr/bin/nm-applet &
-exec /usr/bin/redshiftgtk &
+exec /usr/bin/redshift-gtk &
 exec /usr/bin/volumeicon &
 exec /usr/bin/firefox
 exec /usr/bin/keepassx
