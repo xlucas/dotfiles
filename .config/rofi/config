@@ -1,0 +1,18 @@
+rofi.bw: 0
+rofi.eh: 1
+rofi.fullscreen: true
+rofi.hide-scrollbar: true
+rofi.lines: 3
+rofi.matching: normal
+rofi.monitor: -4
+rofi.padding: 450
+rofi.separator-style: none
+rofi.sidebar-mode: true
+rofi.width: 1920
+
+!                  'background', 'border', 'separator'
+rofi.color-window: argb:ea2d302d, #7c8389, #1d1f21
+
+! State:           'bg',     'fg',     'bgalt',  'hlbg',   'hlfg'
+rofi.color-normal: argb:031d1f21, #f3f4f5, argb:031d1f21, argb:031d1f21, #ebdbb2
+rofi.font: Ubuntu Mono 16

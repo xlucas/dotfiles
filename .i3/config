@@ -37,10 +37,10 @@ font pango:Hack, FontAwesome 11
 #=======================
 # Windows
 #=======================
-new_window 1pixel
+new_window none
 hide_edge_borders both
 
-gaps inner 5
+gaps inner 7
 gaps outer 5
 
 #                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
@@ -63,7 +63,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-msg exit"
 
 # Basic mappings
-bindsym $mod+d exec dmenu_run -fn 10x20
+bindsym $mod+d exec rofi -show run
 bindsym $mod+Return exec gnome-terminal
 bindsym $mod+Shift+Q kill
 bindsym $mod+r mode "resize"
