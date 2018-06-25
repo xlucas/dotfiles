@@ -6,6 +6,7 @@
 #=======================
 set $mod Mod4
 set $black       #212121
+set $midblack    #383530
 set $darkblack   #000000
 set $red         #fb4934
 set $darkred     #cc241d
@@ -37,14 +38,14 @@ font pango:Hack, FontAwesome 11
 #=======================
 # Windows
 #=======================
-new_window none
+new_window 1pixel
 hide_edge_borders both
 
 gaps inner 7
 gaps outer 5
 
 #                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
-client.focused          $black      $black      $darkwhite  $darkblack  $darkblack
+client.focused          $black      $black      $darkwhite  $darkblack  $midblack
 client.unfocused        $black      $black      $white      $darkblack  $darkblack
 client.focused_inactive $black      $black      $white      $darkblack  $darkblack
 client.urgent           $darkred    $darkred    $black      $darkred    $darkred
